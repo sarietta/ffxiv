@@ -1,0 +1,43 @@
+$card-margin: 1rem;
+$card-padding: 1rem;
+$connector-height: 8px;
+
+.quest-cards {
+  counter-reset: index;
+
+  .quest-card {
+    border-radius: 10px;
+    padding: $card-padding;
+    margin: $card-margin;
+    position: relative;
+  }
+
+  .quest-card:before {
+    counter-increment: index;
+    content: counter(index);
+    width: $card-margin*2;
+    position: absolute;
+    top: 50%;
+    left:100%;
+    margin-top: 2px;
+    text-align: center;
+  }
+
+  .quest-card:after {
+    content: '';
+    width: $card-margin*2;
+    border: $connector-height/2 solid;
+    position: absolute;
+    top: 50%;
+    left:100%;
+    margin-top: -$connector-height/2;
+  }
+
+  .quest-card:last-of-type:before {
+    display:none;
+  }
+
+  .quest-card:last-of-type:after {
+    display:none;
+  }
+}

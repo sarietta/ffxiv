@@ -1,0 +1,42 @@
+{
+  "name": "ffxiv",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
+    "awesome-typescript-loader": "^5.2.1",
+    "buefy": "^0.7.8",
+    "clean-webpack-plugin": "^3.0.0",
+    "css-loader": "^3.0.0",
+    "fetch-retry": "^2.2.1",
+    "file-loader": "^4.0.0",
+    "firebase": "^6.2.4",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "lodash.debounce": "^4.0.8",
+    "mini-css-extract-plugin": "^0.7.0",
+    "node-sass": "^4.12.0",
+    "promise.prototype.finally": "^3.1.0",
+    "pug": "^2.0.4",
+    "pug-loader": "^2.4.0",
+    "sass-loader": "^7.1.0",
+    "ts-loader": "^6.0.4",
+    "typescript": "^3.5.2",
+    "vue": "^2.6.10",
+    "vue-loader": "^15.7.0",
+    "vue-router": "^3.0.7",
+    "vue-template-compiler": "^2.6.10",
+    "vuefire": "^2.0.1",
+    "webpack": "^4.35.2",
+    "webpack-cli": "^3.3.5",
+    "webpack-dev-server": "^3.7.2",
+    "xivapi-js": "^0.2.4"
+  }
+}

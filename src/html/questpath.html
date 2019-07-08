@@ -1,0 +1,99 @@
+<div>
+  <nav class="level">
+    <!-- Left side -->
+    <div class="level-left">
+      <div class="level-item">
+        <p class="title is-4">Quest Path</p>
+      </div>
+    </div>
+
+    <!-- Right side -->
+    <div class="level-right">
+      <p class="level-item">
+        <b-dropdown aria-role="list" v-if="savedQuestPaths.length > 0" @change="selectSavedQuestPath">
+          <button class="button is-dark" slot="trigger">
+            <span>Saved Quest Paths</span>
+            <b-icon icon="angle-down"></b-icon>
+          </button>
+
+          <b-dropdown-item v-for="(questPath, index) in savedQuestPaths" aria-role="listitem" :value="index" :key="index">
+            {{questPath[0].name}} -> {{questPath[questPath.length - 1].name}}
+          </b-dropdown-item>
+        </b-dropdown>
+      </p>
+
+      <p class="level-item"><b-button v-if="user" type="is-danger" @click="logout">Logout</b-button></p>
+      <p class="level-item"><b-button v-if="!user" @click="signInWithGoogle">Sign in with Google</b-button></p>
+    </div>
+  </nav>
+
+  <div class="columns is-centered">
+    <div class="column has-text-centered is-2">
+      <b-button v-if="questPath.length > 0 && user" :loading="isSaving" type="is-success" @click="save">Save Quest Path</b-button>
+    </div>
+  </div>
+
+  <div v-if="questPath.length > 0">
+    <div class="columns is-centered is-multiline quest-cards">
+      <div class="column is-narrow quest-card has-background-light" v-for="quest in questPath">
+        <quest-card :quest="quest"></quest-card>
+      </div>
+    </div>
+  </div>
+
+  <b-field label="Start Quest:">
+    <b-autocomplete
+        v-if="!selectedStartQuest"
+        placeholder="Search by name"
+        :data="startingQuestCandidates"
+        field="title"
+        :loading="isLoading"
+        @typing="searchQuestByName($event, startingQuestCandidates)"
+        @select="option => selectedStartQuest = option">
+
+      <template slot-scope="props">
+        <div class="media">
+          <div class="media-left">
+            <img width="32" :src="getIconFullUrl(props.option.iconUrl)">
+          </div>
+          <div class="media-content">
+            {{ props.option.name }}
+          </div>
+        </div>
+      </template>
+    </b-autocomplete>
+
+    <b-button v-if="selectedStartQuest" type="is-danger" icon-pack="fas" icon-right="trash-alt" @click="selectedStartQuest = null">
+      {{selectedStartQuest.name}}
+    </b-button>
+  </b-field>
+
+  <b-field label="End Quest:">
+    <b-autocomplete
+        v-if="!selectedEndQuest"
+        placeholder="Search by name"
+        :data="endingQuestCandidates"
+        field="title"
+        :loading="isLoading"
+        @typing="searchQuestByName($event, endingQuestCandidates)"
+        @select="option => selectedEndQuest = option">
+
+      <template slot-scope="props">
+        <div class="media">
+          <div class="media-left">
+            <img width="32" :src="getIconFullUrl(props.option.iconUrl)">
+          </div>
+          <div class="media-content">
+            {{ props.option.name }}
+          </div>
+        </div>
+      </template>
+    </b-autocomplete>
+
+    <b-button v-if="selectedEndQuest" type="is-danger" icon-pack="fas" icon-right="trash-alt" @click="selectedEndQuest = null">
+      {{selectedEndQuest.name}}
+    </b-button>
+  </b-field>
+
+  <b-loading :active.sync="isLoading"></b-loading>
+</div>
