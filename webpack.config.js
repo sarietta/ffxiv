@@ -7,10 +7,10 @@ const webpack = require('webpack');
 
 module.exports = {
   entry: {
-    app: './src/scripts/main.ts'
+    app: path.resolve(__dirname, 'src', 'scripts', 'main.ts')
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, 'pre-dist'),
     filename: 'js/[name].[hash].js',
     chunkFilename: 'js/[name].[hash].js',
     publicPath: ''
@@ -70,7 +70,7 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: './src/html/main.pug'
+      template: path.resolve(__dirname, 'src', 'html', 'main.pug')
     }),
 
     new webpack.DefinePlugin({
