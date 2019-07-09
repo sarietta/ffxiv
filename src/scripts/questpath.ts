@@ -46,15 +46,15 @@ export const QuestPathComponent = Vue.extend({
       startingQuestCandidates: [],
       endingQuestCandidates: [],
 
-      questPath: new QuestPath([
-        new Quest({
-          id: - 1, name: "As You Wish", startLocation: "La Noesca",
-        }),
-        new Quest({
-          id: -1, name: "Lord of Crags"
-        })]),
+      // questPath: new QuestPath([
+      //   new Quest({
+      //     id: - 1, name: "As You Wish", startLocation: "La Noesca",
+      //   }),
+      //   new Quest({
+      //     id: -1, name: "Lord of Crags"
+      //   })]),
 
-      // questPath: [],
+      questPath: new QuestPath([]),
 
       user: undefined,
       savedQuestPaths: []

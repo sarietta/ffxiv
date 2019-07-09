@@ -3,7 +3,7 @@
     <!-- Left side -->
     <div class="level-left">
       <div class="level-item">
-        <p class="title is-4">Quest Path</p>
+        <p class="title is-1">Quest Path</p>
       </div>
     </div>
 
@@ -11,7 +11,7 @@
     <div class="level-right">
       <p class="level-item">
         <b-dropdown aria-role="list" v-if="savedQuestPaths.length > 0" @change="selectSavedQuestPath">
-          <button class="button is-dark" slot="trigger">
+          <button class="button is-light" slot="trigger">
             <span>Saved Quest Paths</span>
             <b-icon icon="angle-down"></b-icon>
           </button>
@@ -27,18 +27,34 @@
     </div>
   </nav>
 
-  <div class="columns is-centered">
-    <div class="column has-text-centered is-2">
-      <b-button v-if="questPath.path.length > 0 && user" :loading="isSaving" type="is-success" @click="save">Save Quest Path</b-button>
-      <div v-if="questPath.path.length > 0">{{questPath.uuid}}</div>
+  <div class="tile is-ancestor">
+    <div class="tile is-vertical is-8">
+      <div class="tile">
+        <div class="tile is-parent is-vertical">
+          <article class="tile is-child notification is-light">
+            <p class="title is-4">How to Use</p>
+            <p class="subtitle is-6">Select a start and end quest by typing their names below. As you type, this tool will lookup the quests by name in the XIVDB, which is an up-to-date list of all quests in Final Fantasy 14.</p>
+          </article>
+          <article class="tile is-child notification is-light">
+            <p class="title is-4">Saving Your Paths</p>
+            <p class="subtitle is-6">Once you've generated a path between the start and end quests, you can save them to your Google account by logging in via the button in the top right. If you remain logged in, this tool will save the current state of the quest path when you press the Save button. This includes the "checked" state, as long as you re-save the path when you adjust the checks.</p>
+          </article>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div v-if="questPath.path.length > 0">
-    <div class="columns is-centered is-multiline quest-cards">
+  <div v-if="questPath.path.length > 0" class="quest-cards-holder">
+    <div class="columns is-multiline quest-cards">
       <div class="column is-narrow quest-card has-background-light" v-for="(quest, index) in questPath.path">
         <quest-card v-model="questPath.path[index]"></quest-card>
       </div>
+    </div>
+  </div>
+
+  <div class="columns">
+    <div class="column is-2">
+      <b-button v-if="questPath.path.length > 0 && user" :loading="isSaving" type="is-success" @click="save">Save Quest Path</b-button>
     </div>
   </div>
 
@@ -95,6 +111,10 @@
       {{selectedEndQuest.name}}
     </b-button>
   </b-field>
+
+  <b-message title="Warning" type="is-warning" aria-close-label="Close message">
+    If there isn't a path between the quests then this tool may run for a very long time and produce bad outputs.
+  </b-message>
 
   <b-loading :active.sync="isLoading"></b-loading>
 </div>

@@ -2,6 +2,12 @@ $card-margin: 1rem;
 $card-padding: 1rem;
 $connector-height: 8px;
 
+.quest-cards-holder {
+  background-color: #000;
+  padding: 3rem;
+  margin: 1rem 0;
+}
+
 .quest-cards {
   counter-reset: index;
 
@@ -21,12 +27,14 @@ $connector-height: 8px;
     left:100%;
     margin-top: 2px;
     text-align: center;
+    color: #ccc;
   }
 
   .quest-card:after {
     content: '';
     width: $card-margin*2;
     border: $connector-height/2 solid;
+    border-color: #ccc;
     position: absolute;
     top: 50%;
     left:100%;
@@ -39,5 +47,15 @@ $connector-height: 8px;
 
   .quest-card:last-of-type:after {
     display:none;
+  }
+}
+
+nav {
+  background-color: #000;
+  border-radius: 2rem 2rem 0 0;
+  padding: 2rem;
+
+  .title {
+    color: #fff;
   }
 }
