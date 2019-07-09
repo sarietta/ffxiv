@@ -1,22 +1,28 @@
 import Vue from "vue"
+import { Quest } from "./quest";
 
 const templateString = require("html-loader!../html/quest-card.html")
 
 interface DataInterface {
-  checked: boolean
 }
 
 export const QuestCard = Vue.extend({
   name: "quest-card",
-  props: ["quest"],
+  props: {
+    value: Quest,
+  },
+
   template: templateString,
 
-  data(): DataInterface {
+  data: function(): DataInterface {
     return {
-      checked: false
     }
   },
 
   methods: {
+    toggleCompleted: function(value: boolean) {
+      this.value.completed = value
+      this.$emit("input", this.value)
+    },
   },
 })

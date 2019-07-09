@@ -17,7 +17,7 @@
           </button>
 
           <b-dropdown-item v-for="(questPath, index) in savedQuestPaths" aria-role="listitem" :value="index" :key="index">
-            {{questPath[0].name}} -> {{questPath[questPath.length - 1].name}}
+            {{questPath.path[0].name}} -> {{questPath.path[questPath.path.length - 1].name}}
           </b-dropdown-item>
         </b-dropdown>
       </p>
@@ -29,14 +29,15 @@
 
   <div class="columns is-centered">
     <div class="column has-text-centered is-2">
-      <b-button v-if="questPath.length > 0 && user" :loading="isSaving" type="is-success" @click="save">Save Quest Path</b-button>
+      <b-button v-if="questPath.path.length > 0 && user" :loading="isSaving" type="is-success" @click="save">Save Quest Path</b-button>
+      <div v-if="questPath.path.length > 0">{{questPath.uuid}}</div>
     </div>
   </div>
 
-  <div v-if="questPath.length > 0">
+  <div v-if="questPath.path.length > 0">
     <div class="columns is-centered is-multiline quest-cards">
-      <div class="column is-narrow quest-card has-background-light" v-for="quest in questPath">
-        <quest-card :quest="quest"></quest-card>
+      <div class="column is-narrow quest-card has-background-light" v-for="(quest, index) in questPath.path">
+        <quest-card v-model="questPath.path[index]"></quest-card>
       </div>
     </div>
   </div>

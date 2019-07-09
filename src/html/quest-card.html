@@ -1,9 +1,9 @@
 <div>
   <div class="field">
-    <b-checkbox type="is-success">
-      <strong>{{quest.name}}</strong>
+    <b-checkbox type="is-success" v-model="value.completed" @input="toggleCompleted">
+      <strong>{{value.name}}</strong>
 
-      <div v-if="quest.startLocation" class="has-text-centered has-text-grey">{{quest.startLocation}}</div>
+      <div v-if="value.startLocation" class="has-text-centered has-text-grey">{{value.startLocation}}</div>
     </b-checkbox>
   </div>
 </div>

@@ -1,8 +1,8 @@
 import Vue from "vue"
-import { Quest } from "./quest"
+import { Quest, QuestPath } from "./quest"
 import { QuestCard } from "./quest-card"
 import { XIVDB } from "./xivdb"
-import * as firebase from 'firebase'
+import * as firebase from 'firebase/app'
 require('promise.prototype.finally').shim()
 
 import QuestPathStore from "./account"
@@ -21,13 +21,13 @@ interface DataInterface {
   startingQuestCandidates: Quest[]
   endingQuestCandidates: Quest[]
 
-  questPath: Quest[]
+  questPath: QuestPath
 
   user?: firebase.User
-  savedQuestPaths: Quest[][]
+  savedQuestPaths: QuestPath[]
 }
 
-export const QuestPath = Vue.extend({
+export const QuestPathComponent = Vue.extend({
   name: "questpath",
   props: [],
   components: {
@@ -46,7 +46,15 @@ export const QuestPath = Vue.extend({
       startingQuestCandidates: [],
       endingQuestCandidates: [],
 
-      questPath: [],
+      questPath: new QuestPath([
+        new Quest({
+          id: - 1, name: "As You Wish", startLocation: "La Noesca",
+        }),
+        new Quest({
+          id: -1, name: "Lord of Crags"
+        })]),
+
+      // questPath: [],
 
       user: undefined,
       savedQuestPaths: []
@@ -96,7 +104,7 @@ export const QuestPath = Vue.extend({
             quests.push(quest)
           })
 
-          self.savedQuestPaths.push(quests)
+          self.savedQuestPaths.push(new QuestPath(quests, doc.id))
         })
       })
     },
@@ -143,7 +151,7 @@ export const QuestPath = Vue.extend({
           })
       }
 
-      self.questPath.splice(0, self.questPath.length)
+      self.questPath.empty()
       self.isLoading = true
       query(self.selectedEndQuest!.id)
     },
@@ -151,8 +159,8 @@ export const QuestPath = Vue.extend({
     save: function() {
       const self = this
       self.isSaving = true
-      QuestPathStore.doc(self.user!.uid).collection("questpaths").add({
-        path: this.questPath.map(quest => quest.toObject()),
+      QuestPathStore.doc(self.user!.uid).collection("questpaths").doc(this.questPath.uuid).set({
+        path: this.questPath.path.map(quest => quest.toObject()),
         email: self.user!.email,
         name: self.user!.displayName,
       }).then(() => this.$toast.open({

@@ -1,5 +1,5 @@
 import Vue from "vue"
-import { QuestPath } from "./questpath"
+import { QuestPathComponent } from "./questpath"
 
 const templateString = require("html-loader!../html/landing-page.html")
 
@@ -11,7 +11,7 @@ export const LandingPage = Vue.extend({
   props: [],
   template: templateString,
   components: {
-    "questpath": QuestPath,
+    "questpath": QuestPathComponent,
   },
 
   data(): DataInterface {
